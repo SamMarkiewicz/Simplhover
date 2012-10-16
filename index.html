@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+
+  <link rel="stylesheet" href="http://meyerweb.com/eric/tools/css/reset/reset.css">
+  <link rel="stylesheet" type="text/css" href="simplhover.css">
+</head>
+<body>
+  <ul id="simplhover">
+    <li>
+      <img class="img" src="wave.jpg" alt="Attribute 1" data-url="http://www.google.fr" data-name="Test">
+    </li>
+    <li>
+      <img src="wave.jpg" alt="Attribute 2" data-url="http://deviantart.com" data-desc="This is my portfolio">
+    </li>
+    <li>
+      <img src="wave.jpg" alt="Attribute 3" data-url="">
+    </li>
+    <div>
+      <img src="wave.jpg" alt="Attribute 4" data-url="">
+    </div>
+  </ul>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="simplhover.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#simplhover').Simplhover({
+          markUp :'h2',
+          background : 'rgba(250,154,116, .6)',
+          width: 500,
+          height: 345,
+          timer: 500,
+          linkToName: 'En savoir plus'
+        });
+      });
+
+    </script>
+</body>
+</html>

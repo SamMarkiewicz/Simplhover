@@ -1,0 +1,42 @@
+#simplhover .element {
+  position:relative;
+  display: inline-block;
+  list-style: none;
+  width: 100%;
+  overflow: hidden;
+}
+
+.element .inner {
+  display: none;
+
+  position: absolute;
+  top:0;
+  left:0;
+
+  width: 100%;
+  height: 100%;
+
+  cursor: pointer
+}
+
+.element div h2 {
+  padding: 3%;
+  color: rgba(255,255,255,1);
+  font-family:Helvetica;
+}
+
+.element img {
+  display:block;
+  max-width: 100%;
+  -moz-transition:
+    all .2s ease-out;
+  -webkit-transition:
+    all .2s ease-out;
+}
+
+img.blur {
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -webkit-box-shadow: inset 0 0 20px rgba(255,255,255,.6);
+  /*-webkit-filter: blur(2px)*/
+}
