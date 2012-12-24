@@ -1,92 +1,70 @@
 (function($){
 
-    $.fn.extend({
-        Simplhover: function(options) {
+  $.fn.extend({
+    Simplhover: function(options) {
+      // Basic configuration
+      var defaults = {
+        elementsSelector: 'li, div, a',
+        contentMarkup:    'p', // You are free to add your own markup, by default it will a be <p>, but you can add an <h> if you want
+        background:       'rgba(0,0,0, .8)', // Choose dynamically a background color for hover - Using of rgba recommended
+        timer:            '500', // Set the timer for the effect
+        width:            'auto', // Set a max-width
+        linkToName:       'Read More'
+      };
 
-          // Define global variables
-          var simplhover = $('#simplhover').children('li, div, a')
+      var options = $.extend(defaults, options);
 
-          // Add an class "element" on the children you choose for simplhover
-          simplhover.addClass('element');
-          var element = $('.element')
+      var simplhoverElements = $(this).children(options.elementsSelector);
+      simplhoverElements.addClass('simplhover-element');
 
-          // Basic configuration
-          var defaults = {
-            markUp: 'p', // You are free to add your own markup, by default it will a be <p>, but you can add an <h> if you want
-            background: 'rgba(0,0,0, .8)', // Choose dynamically a background color for hover - Using of rgba recommended
-            timer: '500', // Set the timer for the effect
-            width: 'auto', // Set a max-width
-            linkToName: 'Read More'
-          };
+      return this.each(function() {
+        simplhoverElements.each(function(){
+          simplhoverElement     = $(this);
 
-          var options = $.extend(defaults, options);
+          var simplhoverImage   = simplhoverElement.children('img');
+          var img_alt           = simplhoverImage.attr('alt');
+          var href              = simplhoverImage.attr('data-url');
+          var name              = simplhoverImage.attr('data-name');
+          var desc              = simplhoverImage.attr('data-desc');
 
-          return this.each(function() {
+          var simplhoverContent = $('</' + options.contentMarkup + '>');
+          simplhoverContent.addClass('simplhover-element-content');
+          simplhoverContent.text(img_alt);
 
-            var o = options;
+          // Building the markup
+          simplhoverElement.append(simplhoverContent);
 
-            // Create the markup dynamically for eache .element
+          // Check if data-url is set to create a link around your alt attribute
+          if (href) {
+            simplhoverContent.wrapInner('<a href="' + href + '" />');
+          }
 
-            element.each(function(){
+          // Check if data-desc is set to add a description
+          if (desc) {
+            simplhoverElement.find('a').append(
+              '<p>' +
+                desc +
+                '<br/>' +
+                '<a href="' + href + '">' + options.linkToName + '</a>' +
+              '</p>'
+            );
+          }
 
-              var img_alt = $(this).find('img').attr('alt')
-              var href = $(this).children('img').attr("data-url")
-              var name = $(this).children('img').attr("data-name")
-              var desc = $(this).children('img').attr("data-desc")
+          simplhoverElement.css('max-width', options.width); // Define max-width for your container
 
-              // Building the markup
-              $(this).append(
-                '<div class="inner"><'
-                + o.markUp +
-                '>'
-                + img_alt +
-                '</'
-                + o.markUp +
-                '></div>'
-              )
+          simplhoverContent.css('background-color', options.background); // Define the background color on simplhover
 
-              // Check if data-url is set to create a link around your alt attribute
-              if ($(this).children('img')
-                         .attr("data-url")) {
-                $(this).children('div')
-                       .wrapInner('<a href="' + href + '" />');
-              } else {
-
-              }
-
-              // Check if data-desc is set to add a description
-              if ($(this).children('img')
-                         .attr("data-desc")) {
-                $(this).find('a')
-                       .append('<p>' + desc + '<br/><a href="' + href + '">' + o.linkToName + '</a></p>');
-              } else {
-
-              }
-
-
-              element.css('max-width', o.width); // Define max-width for your container
-
-              element.find('div')
-                    .stop(false, true)
-                    .css('background-color', o.background); // Define the background color on simplhover
-
-              element.on('mouseenter', function(){
-                $(this).children('div')
-                      .fadeIn(o.timer);
-                $(this).children('img')
-                      .stop(false, true)
-                      .addClass('blur');
-              });
-
-              element.on('mouseleave', function(){
-                $(this).children('div')
-                      .fadeOut(o.timer);
-                $(this).children('img')
-                      .stop(false, true)
-                      .removeClass('blur');
-              });
-            })
+          simplhoverElement.on('mouseenter', function(){
+            simplhoverContent.stop(false, true).fadeIn(options.timer);
+            simplhoverImage.addClass('blur');
           });
-        }
-    });
+
+          simplhoverElement.on('mouseleave', function(){
+            simplhoverContent.stop(false, true).fadeOut(options.timer);
+            simplhoverImage.removeClass('blur');
+          });
+        })
+      });
+    }
+  });
 })(jQuery);
