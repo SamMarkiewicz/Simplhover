@@ -1,4 +1,4 @@
-#simplhover .element {
+.simplhover-element {
   position:relative;
   display: inline-block;
   list-style: none;
@@ -6,26 +6,23 @@
   overflow: hidden;
 }
 
-.element .inner {
+.simplhover-element-content {
   display: none;
-
   position: absolute;
   top:0;
   left:0;
-
   width: 100%;
   height: 100%;
-
   cursor: pointer
 }
 
-.element div h2 {
+.simplhover-element div h2 {
   padding: 3%;
   color: rgba(255,255,255,1);
-  font-family:Helvetica;
+  font-family:Helvetica
 }
 
-.element img {
+.simplhover-element img {
   display:block;
   max-width: 100%;
   -moz-transition:
