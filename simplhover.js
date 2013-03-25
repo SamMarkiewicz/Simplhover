@@ -27,7 +27,7 @@
           var name              = simplhoverImage.attr('data-name');
           var desc              = simplhoverImage.attr('data-desc');
 
-          var simplhoverContent = $('</' + options.contentMarkup + '>');
+          var simplhoverContent = $('<' + options.contentMarkup + '></' + options.contentMarkup + '>');
           simplhoverContent.addClass('simplhover-element-content');
           simplhoverContent.text(img_alt);
 
